@@ -1,0 +1,29 @@
+name: check-places-release
+
+on:
+  schedule:
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - id: check
+        run: |
+          set +e
+          gapatlas check-release
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - if: steps.check.outputs.code == '10'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "New CDC PLACES release detected" --body "gapatlas check-release found newer PLACES data. Rebuild and follow docs/release_checklist.md."

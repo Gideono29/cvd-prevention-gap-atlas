@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use the CVD Prevention Gap Atlas, please cite it as below."
+title: "CVD Prevention Gap Atlas: where cardiovascular risk burden outpaces prevention capacity"
+type: software
+version: 0.1.0
+# date-released and doi are added after the first Zenodo-archived release
+repository-code: "https://github.com/Gideono29/cvd-prevention-gap-atlas"
+authors:
+  - family-names: "Owusu"
+    given-names: "Gideon"
+    email: gideono@mtu.edu
+    affiliation: "Michigan Technological University"
+    orcid: "https://orcid.org/0009-0000-0540-7449"
+license: MIT
+keywords:
+  - cardiovascular disease
+  - prevention
+  - health equity
+  - CDC PLACES
+  - social vulnerability

@@ -1,0 +1,12 @@
+# Raw inputs are re-downloaded by `gapatlas download` (hashes in data/raw/manifest.json)
+data/raw/*
+!data/raw/manifest.json
+!data/raw/README.md
+*.part
+*.log
+__pycache__/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+.venv/
