@@ -25,8 +25,8 @@ def _wmean(parts: list, weights: list) -> pd.Series:
     return pd.Series(np.where(den > 0, num / np.where(den > 0, den, 1), np.nan), index=stack.index)
 
 
-def burden_score(df: pd.DataFrame, spec: IndexSpec = IndexSpec()) -> pd.Series:
-    cols = [m for m in BURDEN_MEASURES if m in df.columns]
+def burden_score(df: pd.DataFrame, spec: IndexSpec = IndexSpec(), measures=None) -> pd.Series:
+    cols = [m for m in (measures or BURDEN_MEASURES) if m in df.columns]
     parts = [_row_mean(pd.concat([pct(df[m]) for m in cols], axis=1))] if cols else []
     weights = [spec.burden_weight_places] if cols else []
     if "cvd_mortality" in df.columns and spec.burden_weight_mortality > 0:
@@ -50,10 +50,10 @@ def capacity_score(df: pd.DataFrame, spec: IndexSpec = IndexSpec()) -> pd.Series
     return _wmean(parts, weights) if parts else pd.Series(np.nan, index=df.index)
 
 
-def gap_table(df: pd.DataFrame, spec: IndexSpec = IndexSpec()) -> pd.DataFrame:
+def gap_table(df: pd.DataFrame, spec: IndexSpec = IndexSpec(), burden_measures=None) -> pd.DataFrame:
     """Adds burden, capacity, gap_national, gap_stratum (if 'stratum' present) and a top-decile flag."""
     out = df.copy()
-    out["burden"] = burden_score(out, spec)
+    out["burden"] = burden_score(out, spec, burden_measures)
     out["capacity"] = capacity_score(out, spec)
     out["gap_national"] = pct(out["burden"]) - pct(out["capacity"])
     if "stratum" in out.columns:

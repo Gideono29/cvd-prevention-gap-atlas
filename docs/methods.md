@@ -35,8 +35,20 @@ County = 5-digit FIPS; tract = 11-digit GEOID. All sources are zero-padded to th
    `top_decile_gap` flags the top 10% of `gap_national`.
 5. Missing inputs are never imputed. Units without enough inputs get NaN.
 
+## Sensitivity analysis (`gapatlas sensitivity` -> `outputs/sensitivity_summary.csv`)
+Each variant is compared with the default index by Spearman correlation of `gap_national` and by the Jaccard overlap
+of the top-decile sets. Variants: HPSA, preventive-care and (when WONDER is present) mortality weights in
+{0, 0.5, 2}; and leave-one-out of each of the six burden measures.
+
+Findings on the current build (PLACES 2025, no WONDER), counties:
+- Dropping any single burden measure leaves rankings nearly unchanged (rho >= 0.995, top-decile overlap 0.90-0.95).
+- **The top decile is sensitive to HPSA.** Setting the HPSA weight to 0 keeps only 38% of the top-decile counties
+  (rho 0.83); halving it keeps 72%; doubling it keeps 80%. Counties flagged only because of HPSA designation should
+  be described as such, and the map should expose the HPSA-excluded ranking.
+- Tracts have no HPSA input, so weight variants do not apply and only the leave-one-out rows are reported
+  (rho >= 0.995, top-decile overlap 0.88-0.94).
+
 ## Planned
-- Sensitivity analysis on weights (mortality and HPSA weights 0, 0.5, 1, 2) with rank correlation of gaps.
 - Uncertainty propagation from PLACES confidence limits for tracts.
 - Age-adjusted prevalence variant.
 

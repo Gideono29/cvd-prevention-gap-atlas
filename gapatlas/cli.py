@@ -3,7 +3,9 @@ import argparse
 import sys
 from pathlib import Path
 
-from .build import build
+import pandas as pd
+
+from .build import assemble, build
 from .config import IndexSpec
 from .download import check_release, download_places
 
@@ -18,6 +20,8 @@ def main(argv=None) -> int:
     b.add_argument("--out", default=Path("outputs"), type=Path)
     b.add_argument("--w-mortality", type=float, default=1.0, help="weight of WONDER mortality in burden")
     b.add_argument("--w-hpsa", type=float, default=1.0, help="weight of HPSA in capacity")
+    sn = sub.add_parser("sensitivity", help="rank stability under alternative weights and measure sets")
+    sn.add_argument("--out", default=Path("outputs"), type=Path)
     a = p.parse_args(argv)
 
     if a.cmd == "download":
@@ -29,6 +33,13 @@ def main(argv=None) -> int:
     elif a.cmd == "build":
         spec = IndexSpec(burden_weight_mortality=a.w_mortality, capacity_weight_hpsa=a.w_hpsa)
         print(build(a.data_dir, a.out, spec)["summary"])
+    elif a.cmd == "sensitivity":
+        from .sensitivity import run
+        frames, _, _ = assemble(a.data_dir)
+        res = pd.concat([run(df, lvl) for lvl, df in frames.items()], ignore_index=True)
+        a.out.mkdir(parents=True, exist_ok=True)
+        res.to_csv(a.out / "sensitivity_summary.csv", index=False)
+        print(res.to_string(index=False))
     return 0
 
 

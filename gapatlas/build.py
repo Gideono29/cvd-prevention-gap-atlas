@@ -13,10 +13,10 @@ def _first(raw: Path, sub: str, pattern: str) -> Path | None:
     return hits[0] if hits else None
 
 
-def build(data_dir: Path, out_dir: Path, spec: IndexSpec = IndexSpec()) -> dict:
-    raw, out_dir = Path(data_dir) / "raw", Path(out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
-    used, summary = {}, {}
+def assemble(data_dir: Path) -> tuple:
+    """Join all available sources. Returns ({level: joined frame}, {input name: file}, {level: skip note})."""
+    raw = Path(data_dir) / "raw"
+    used, frames, skipped = {}, {}, {}
 
     ruca_path = _first(raw, "ruca", "*.csv")
     ruca_t = load_ruca(ruca_path) if ruca_path else None
@@ -26,7 +26,7 @@ def build(data_dir: Path, out_dir: Path, spec: IndexSpec = IndexSpec()) -> dict:
     for level in ("county", "tract"):
         places_path = raw / "places" / f"places_{level}.csv"
         if not places_path.exists():
-            summary[level] = "skipped: PLACES file missing (run `gapatlas download`)"
+            skipped[level] = "skipped: PLACES file missing (run `gapatlas download`)"
             continue
         df = load_places(places_path, level)
         used[f"places_{level}"] = places_path.name
@@ -48,6 +48,15 @@ def build(data_dir: Path, out_dir: Path, spec: IndexSpec = IndexSpec()) -> dict:
                 df = df.merge(load_wonder(wonder_path), on="fips", how="left")
                 used["wonder"] = wonder_path.name
 
+        frames[level] = df
+    return frames, used, skipped
+
+
+def build(data_dir: Path, out_dir: Path, spec: IndexSpec = IndexSpec()) -> dict:
+    out_dir = Path(out_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    frames, used, summary = assemble(data_dir)
+    for level, df in frames.items():
         res = gap_table(df, spec)
         res.to_csv(out_dir / f"gap_{level}.csv", index=False)
         summary[level] = {"rows": int(len(res)), "top_decile": int(res["top_decile_gap"].sum())}
