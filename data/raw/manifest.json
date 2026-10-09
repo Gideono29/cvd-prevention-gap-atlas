@@ -1,0 +1,22 @@
+{
+  "places": {
+    "county": {
+      "id": "swc5-untb",
+      "name": "PLACES: Local Data for Better Health, County Data, 2025 release",
+      "rowsUpdatedAt": 1764844506,
+      "viewLastModified": 1790118324,
+      "file": "places_county.csv",
+      "bytes": 53396904,
+      "sha256": "2dc8d4ae93543a217973bdc2d774855134ca01d8adf00c77a082acc4b8ce3377"
+    },
+    "tract": {
+      "id": "cwsq-ngmh",
+      "name": "PLACES: Local Data for Better Health, Census Tract Data, 2025 release",
+      "rowsUpdatedAt": 1765560443,
+      "viewLastModified": 1790116952,
+      "file": "places_tract.csv",
+      "bytes": 727780023,
+      "sha256": "2117a921c14a42396362021523dd4accf1f235ab59f09d2b2339ae40393b2e4d"
+    }
+  }
+}

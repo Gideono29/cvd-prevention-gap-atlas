@@ -6,8 +6,10 @@ cardiovascular risk burden outpaces prevention capacity.
 Maintainer: Gideon Owusu, Michigan Technological University
 ([ORCID 0009-0000-0540-7449](https://orcid.org/0009-0000-0540-7449))
 
-**Status: v0.1.0 (pre-release).** The pipeline and index are implemented and unit-tested on synthetic data. The
-interactive map, a full run on real data and the v1 release are not done yet. No DOI has been minted.
+**Status: v0.1.0 (pre-release).** The pipeline runs end to end on real PLACES 2025, RUCA 2020, SVI 2022 and HRSA
+HPSA data (2,957 counties, 78,815 tracts scored; Kentucky and Pennsylvania are absent from the PLACES 2025 core
+measures, see `docs/methods.md`). WONDER mortality, the weight sensitivity analysis, the interactive map and the v1
+release are not done yet. No DOI has been minted.
 
 ## Index
 
