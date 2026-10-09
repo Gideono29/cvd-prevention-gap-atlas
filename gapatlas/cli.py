@@ -22,6 +22,8 @@ def main(argv=None) -> int:
     b.add_argument("--w-hpsa", type=float, default=1.0, help="weight of HPSA in capacity")
     sn = sub.add_parser("sensitivity", help="rank stability under alternative weights and measure sets")
     sn.add_argument("--out", default=Path("outputs"), type=Path)
+    st = sub.add_parser("site", help="generate static map site data (needs the `site` extra)")
+    st.add_argument("--site-dir", default=Path("site"), type=Path)
     a = p.parse_args(argv)
 
     if a.cmd == "download":
@@ -40,6 +42,9 @@ def main(argv=None) -> int:
         a.out.mkdir(parents=True, exist_ok=True)
         res.to_csv(a.out / "sensitivity_summary.csv", index=False)
         print(res.to_string(index=False))
+    elif a.cmd == "site":
+        from .sitegen import generate
+        print(generate(a.data_dir, a.site_dir))
     return 0
 
 

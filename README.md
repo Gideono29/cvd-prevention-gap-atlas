@@ -8,8 +8,8 @@ Maintainer: Gideon Owusu, Michigan Technological University
 
 **Status: v0.1.0 (pre-release).** The pipeline runs end to end on real PLACES 2025, RUCA 2020, SVI 2022 and HRSA
 HPSA data (2,957 counties, 78,815 tracts scored; Kentucky and Pennsylvania are absent from the PLACES 2025 core
-measures, see `docs/methods.md`). WONDER mortality, the weight sensitivity analysis, the interactive map and the v1
-release are not done yet. No DOI has been minted.
+measures, see `docs/methods.md`). A static interactive map is in `site/`. WONDER mortality, Connecticut boundaries
+(planning regions) and the v1 release are not done yet. No DOI has been minted.
 
 ## Index
 
@@ -32,6 +32,9 @@ pip install -e .[test]
 gapatlas download          # PLACES county + tract from data.cdc.gov (SHA-256 manifest)
 # add RUCA, SVI, HRSA, WONDER files by hand: see data/raw/README.md
 gapatlas build             # outputs/gap_county.csv, gap_tract.csv, run_manifest.json
+gapatlas sensitivity       # outputs/sensitivity_summary.csv (weights, leave-one-measure-out)
+pip install -e .[site]     # then: gapatlas site  -> site/data/ (needs Census boundaries, see data/raw/README.md)
+python -m http.server -d site 8000   # view the map at http://localhost:8000
 gapatlas check-release     # exit code 10 when CDC has published a newer PLACES release
 pytest -q
 ```

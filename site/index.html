@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CVD Prevention Gap Atlas</title>
+<meta name="description" content="County and census-tract map of where cardiovascular risk burden outpaces prevention capacity.">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="map" role="application" aria-label="Map of cardiovascular prevention gap"></div>
+
+<aside id="panel">
+  <h1>CVD Prevention Gap Atlas</h1>
+  <p class="sub">Where cardiovascular risk burden outpaces prevention capacity</p>
+
+  <label for="metric">Show</label>
+  <select id="metric">
+    <option value="gap_national">Gap (national percentile)</option>
+    <option value="gap_stratum">Gap (within rural-urban group)</option>
+    <option value="gap_no_hpsa">Gap without HPSA (counties only)</option>
+    <option value="burden">Burden percentile</option>
+    <option value="capacity">Capacity percentile</option>
+    <option value="svi">Social vulnerability (SVI)</option>
+  </select>
+
+  <label class="check"><input type="checkbox" id="top"> Outline top-decile gap areas</label>
+
+  <div id="legend" aria-live="polite"></div>
+  <div id="status" role="status"></div>
+
+  <details>
+    <summary>About and limits</summary>
+    <p><b>Gap</b> = burden percentile minus capacity percentile; positive means burden outpaces capacity.
+    Burden combines CDC PLACES prevalence of heart disease, stroke, high blood pressure, diabetes, smoking and obesity.
+    Capacity combines PLACES preventive-care use and insurance with HRSA primary-care shortage (HPSA) scores (county only).
+    SVI is shown for context and is not part of the gap.</p>
+    <p><b>Not shown:</b> Kentucky and Pennsylvania (no PLACES 2025 core estimates) and Connecticut
+    (planning-region boundaries not yet loaded). CDC WONDER mortality is not yet included.</p>
+    <p>PLACES values are model-based estimates. The gap is a prioritization index, not a causal claim, and the
+    top-decile set depends on the HPSA weight (see the "without HPSA" view and the methods doc).</p>
+    <p><a href="https://github.com/Gideono29/cvd-prevention-gap-atlas" rel="noopener">Source, methods and data</a></p>
+  </details>
+</aside>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "counties": {
+    "features": 3143,
+    "scored": 2947
+  },
+  "tracts": {
+    "features": 84122,
+    "scored": 77939,
+    "states": 51
+  },
+  "inputs": {
+    "ruca": "ruca2020_tracts.csv",
+    "places_county": "places_county.csv",
+    "svi_county": "SVI_2022_US_county.csv",
+    "hrsa": "BCD_HPSA_FCT_DET_PC.csv",
+    "places_tract": "places_tract.csv",
+    "svi_tract": "SVI_2022_US_tract.csv"
+  }
+}
