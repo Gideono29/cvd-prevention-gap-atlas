@@ -57,6 +57,9 @@ def generate(data_dir: Path, site_dir: Path) -> dict:
     cp = _props(cnt, cnt_cols)
 
     cg = gpd.read_file(bdir / "cb_2020_us_county_500k.zip")
+    # PLACES 2025 uses Connecticut's planning regions (2022 vintage boundaries) instead of its old counties
+    ct = gpd.read_file(bdir / "cb_2022_us_county_500k.zip")
+    cg = pd.concat([cg[cg["STATEFP"] != "09"], ct[ct["STATEFP"] == "09"]], ignore_index=True)
     cg = cg[cg["STATEFP"].astype(int) <= 56][["GEOID", "NAME", "STUSPS", "STATEFP", "geometry"]]
     cg = cg.rename(columns={"GEOID": "fips"}).merge(cp, on="fips", how="left")
     cg["scored"] = cg["gap_national"].notna().astype(int)
@@ -68,8 +71,10 @@ def generate(data_dir: Path, site_dir: Path) -> dict:
     tp = _props(trt, ["gap_national", "gap_stratum", "burden", "capacity", "svi", "top_decile_gap", "stratum"])
     states = {}
     n_feat = n_scored = 0
-    for shp in sorted(bdir.glob("cb_2020_*_tract_500k.zip")):
-        st = shp.name.split("_")[2]
+    shps = {p.name.split("_")[2]: p for p in bdir.glob("cb_2020_*_tract_500k.zip")}
+    if (bdir / "cb_2022_09_tract_500k.zip").exists():
+        shps["09"] = bdir / "cb_2022_09_tract_500k.zip"   # Connecticut planning-region tracts
+    for st, shp in sorted(shps.items()):
         tg = gpd.read_file(shp)[["GEOID", "geometry"]].rename(columns={"GEOID": "fips"})
         tg = tg.merge(tp, on="fips", how="left")
         tg["scored"] = tg["gap_national"].notna().astype(int)

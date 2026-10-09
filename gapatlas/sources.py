@@ -36,13 +36,15 @@ def load_places(path: Path, level: str) -> pd.DataFrame:
 def load_ruca(path: Path) -> pd.DataFrame:
     """USDA tract-level RUCA csv ('State-County-Tract FIPS Code', 'Primary RUCA Code')."""
     df = _read(path, dtype=str)
-    # The 2020 file carries both 2020 and 2023 tract vintages; PLACES uses 2020 tract boundaries.
-    tract_col = "TractFIPS20" if "TractFIPS20" in df.columns else next(
-        c for c in df.columns if "tract" in c.lower() and "fips" in c.lower())
+    # The file carries 2020 and 2023 tract IDs. They differ only in Connecticut, where PLACES 2025 uses the 2023
+    # planning-region IDs, so both are kept (a tract ID appears under one vintage only).
     code_col = "PrimaryRUCA" if "PrimaryRUCA" in df.columns else next(
         c for c in df.columns if "primary" in c.lower() and "ruca" in c.lower())
-    out = pd.DataFrame({"fips": tract_fips(df[tract_col]),
-                        "ruca": pd.to_numeric(df[code_col], errors="coerce")})
+    id_cols = [c for c in ("TractFIPS20", "TractFIPS23") if c in df.columns] or [
+        next(c for c in df.columns if "tract" in c.lower() and "fips" in c.lower())]
+    ruca = pd.to_numeric(df[code_col], errors="coerce")
+    out = pd.concat([pd.DataFrame({"fips": tract_fips(df[c]), "ruca": ruca}) for c in id_cols])
+    out = out.dropna(subset=["fips"]).drop_duplicates("fips")
     out = out[out["ruca"].isin(RUCA_STRATA)].copy()
     out["stratum"] = out["ruca"].map(RUCA_STRATA)
     return out

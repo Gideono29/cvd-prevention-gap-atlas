@@ -1,11 +1,11 @@
 {
   "counties": {
-    "features": 3143,
-    "scored": 2947
+    "features": 3144,
+    "scored": 2956
   },
   "tracts": {
     "features": 84122,
-    "scored": 77939,
+    "scored": 78815,
     "states": 51
   },
   "inputs": {

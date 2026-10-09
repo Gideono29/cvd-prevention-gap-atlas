@@ -8,8 +8,8 @@ Maintainer: Gideon Owusu, Michigan Technological University
 
 **Status: v0.1.0 (pre-release).** The pipeline runs end to end on real PLACES 2025, RUCA 2020, SVI 2022 and HRSA
 HPSA data (2,957 counties, 78,815 tracts scored; Kentucky and Pennsylvania are absent from the PLACES 2025 core
-measures, see `docs/methods.md`). A static interactive map is in `site/`. WONDER mortality, Connecticut boundaries
-(planning regions) and the v1 release are not done yet. No DOI has been minted.
+measures, see `docs/methods.md`). A static interactive map is in `site/`. WONDER mortality and the v1 release are
+not done yet. No DOI has been minted.
 
 ## Index
 

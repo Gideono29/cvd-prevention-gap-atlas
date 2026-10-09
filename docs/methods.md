@@ -51,9 +51,12 @@ Findings on the current build (PLACES 2025, no WONDER), counties:
 ## Map
 `gapatlas site` writes `site/data/`: simplified county GeoJSON (about 1 km tolerance) and one tract GeoJSON per state
 (about 150 m, loaded on demand when zoomed in). Geometry is for display only. The map shows gap, burden, capacity and
-SVI, a without-HPSA county view and a top-decile outline. Not displayed: Kentucky, Pennsylvania (no PLACES data) and
-Connecticut (2022-vintage planning-region boundaries not yet loaded), so 2,947 of 2,957 scored counties and 77,939 of
-78,815 scored tracts are drawn.
+SVI, a without-HPSA county view and a top-decile outline. Connecticut uses the 2022-vintage planning-region
+boundaries (county and tract) because PLACES 2025 uses planning-region IDs (09110-09190); all other states use 2020
+boundaries. Not displayed: Kentucky and Pennsylvania (no PLACES data) and one stray PLACES row (`00059`) that is not a
+county. All 78,815 scored tracts and 2,956 of 2,957 scored counties are drawn.
+RUCA assignment uses both the 2020 and 2023 tract IDs in the USDA file so Connecticut planning-region tracts get a
+rural-urban group.
 
 ## Planned
 - Uncertainty propagation from PLACES confidence limits for tracts.

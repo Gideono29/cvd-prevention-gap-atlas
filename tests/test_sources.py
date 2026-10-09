@@ -16,14 +16,14 @@ def test_places_pivot_crude_only(tmp_path):
     assert out.loc["01003", "CHD"] == 7.5
 
 
-def test_ruca_uses_2020_tracts_and_drops_secondary_codes(tmp_path):
+def test_ruca_keeps_both_tract_vintages_and_drops_bad_codes(tmp_path):
     p = tmp_path / "ruca.csv"
-    pd.DataFrame({"TractFIPS23": ["01001020101", "01001020200", "01003000100"],
-                  "TractFIPS20": ["01001020100", "01001020200", "01003000100"],
+    pd.DataFrame({"TractFIPS23": ["01001020100", "09110100100", "01003000100"],
+                  "TractFIPS20": ["01001020100", "09001010100", "01003000100"],
                   "PrimaryRUCA": ["1", "1", "99"],
                   "PrimaryRUCADescription": ["a", "b", "c"]}).to_csv(p, index=False)
     out = load_ruca(p)
-    assert out["fips"].tolist() == ["01001020100", "01001020200"]
+    assert sorted(out["fips"]) == ["01001020100", "09001010100", "09110100100"]  # CT planning-region ID kept
     assert set(out["stratum"]) == {"metropolitan"}
 
 
