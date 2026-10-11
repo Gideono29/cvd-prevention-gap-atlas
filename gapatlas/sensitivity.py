@@ -11,7 +11,8 @@ WEIGHTS = [0.0, 0.5, 1.0, 2.0]
 
 def _compare(base: pd.DataFrame, alt: pd.DataFrame) -> dict:
     both = base["gap_national"].notna() & alt["gap_national"].notna()
-    rho = base.loc[both, "gap_national"].corr(alt.loc[both, "gap_national"], method="spearman")
+    # Spearman = Pearson on average ranks (avoids pandas' optional scipy dependency)
+    rho = base.loc[both, "gap_national"].rank().corr(alt.loc[both, "gap_national"].rank())
     a, b = set(base.index[base["top_decile_gap"] & both]), set(alt.index[alt["top_decile_gap"] & both])
     return {"n": int(both.sum()), "spearman_vs_baseline": round(float(rho), 4),
             "top_decile_overlap": round(len(a & b) / max(len(a | b), 1), 4)}
