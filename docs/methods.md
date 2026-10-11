@@ -17,7 +17,8 @@ County = 5-digit FIPS; tract = 11-digit GEOID. All sources are zero-padded to th
 - RUCA 2020 (tracts, 2020 tract vintage `TractFIPS20`, `PrimaryRUCA`); SVI 2022 (county and tract, `RPL_THEMES`);
   HRSA primary-care HPSA detail file (downloaded 2026-10-09; designated records only, all designation types in the
   file are geographic or population-group, and the maximum score per county is used).
-- WONDER mortality: not yet included. Burden currently uses PLACES measures only.
+- WONDER mortality: **not included in v1.0.0** (manual export). Burden uses PLACES measures only; adding a WONDER
+  export to `data/raw/wonder/` enables it without code changes.
 
 ## Coverage
 - **Kentucky and Pennsylvania have no core-measure estimates in the PLACES 2025 release** (only five 2022 non-core

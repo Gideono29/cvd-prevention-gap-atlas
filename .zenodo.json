@@ -2,7 +2,7 @@
   "title": "CVD Prevention Gap Atlas: where cardiovascular risk burden outpaces prevention capacity",
   "upload_type": "software",
   "access_right": "open",
-  "description": "County and census-tract index joining CDC PLACES, CDC WONDER, HRSA HPSA, USDA RUCA and CDC/ATSDR SVI to locate where cardiovascular risk burden outpaces prevention capacity. Includes ingestion, percentile-based gap index, rural-urban stratified comparison and a PLACES release check.",
+  "description": "County and census-tract index joining CDC PLACES, CDC WONDER, HRSA HPSA, USDA RUCA and CDC/ATSDR SVI to locate where cardiovascular risk burden outpaces prevention capacity. Version 1.0.0 uses PLACES-based burden only (WONDER mortality supported but not included). Includes ingestion, percentile-based gap index, rural-urban stratified comparison and a PLACES release check.",
   "creators": [
     {"name": "Owusu, Gideon", "affiliation": "Michigan Technological University", "orcid": "0009-0000-0540-7449"}
   ],

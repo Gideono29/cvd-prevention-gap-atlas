@@ -2,8 +2,9 @@ cff-version: 1.2.0
 message: "If you use the CVD Prevention Gap Atlas, please cite it as below."
 title: "CVD Prevention Gap Atlas: where cardiovascular risk burden outpaces prevention capacity"
 type: software
-version: 0.1.0
-# date-released and doi are added after the first Zenodo-archived release
+version: 1.0.0
+date-released: 2026-10-11
+# doi is added after the first Zenodo-archived release (concept DOI)
 repository-code: "https://github.com/Gideono29/cvd-prevention-gap-atlas"
 authors:
   - family-names: "Owusu"
