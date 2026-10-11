@@ -1,5 +1,9 @@
 # CVD Prevention Gap Atlas
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23298097.svg)](https://doi.org/10.5281/zenodo.23298097)
+[![tests](https://github.com/Gideono29/cvd-prevention-gap-atlas/actions/workflows/tests.yml/badge.svg)](https://github.com/Gideono29/cvd-prevention-gap-atlas/actions/workflows/tests.yml)
+[Interactive map](https://gideono29.github.io/cvd-prevention-gap-atlas/)
+
 County and census-tract map joining **CDC PLACES, HRSA, USDA RUCA and CDC/ATSDR SVI** (and, optionally, CDC WONDER
 mortality) to locate where cardiovascular risk burden outpaces prevention capacity.
 
@@ -10,6 +14,12 @@ Maintainer: Gideon Owusu, Michigan Technological University
 HPSA data (2,957 counties, 78,815 tracts scored; Kentucky and Pennsylvania are absent from the PLACES 2025 core
 measures, see `docs/methods.md`). A static interactive map is in `site/`. CDC WONDER mortality is supported by the pipeline
 but **not included in v1** (burden is PLACES-based), see `docs/methods.md`.
+
+## Citation
+
+See `CITATION.cff`. Cite all versions with the concept DOI
+[10.5281/zenodo.23298097](https://doi.org/10.5281/zenodo.23298097), or v1.0.0 specifically with
+[10.5281/zenodo.23298098](https://doi.org/10.5281/zenodo.23298098).
 
 ## Index
 
