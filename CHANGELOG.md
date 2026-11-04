@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+- `check-release` and `download` now look up the newest PLACES release in the data.cdc.gov catalog. CDC publishes each
+  release as a new dataset id, so v1.0.0's check (fixed ids) could not have detected a new release.
+
 ## 1.0.0 (2026-10-11)
 First release. Burden is **PLACES-based only**: CDC WONDER mortality is supported by the pipeline but not included in
 this release (WONDER has no bulk county API; the export is manual).
