@@ -1,6 +1,9 @@
 # Changelog
 
 ## Unreleased
+- Sensitivity output now reports `top_decile_retained` and `top_decile_jaccard`. v1.0.0 labelled the Jaccard value
+  "overlap" and its docs/release notes described it as the share of counties kept, which overstated the effect of
+  dropping HPSA (55% of top-decile counties remain, not 38%).
 - `check-release` and `download` now look up the newest PLACES release in the data.cdc.gov catalog. CDC publishes each
   release as a new dataset id, so v1.0.0's check (fixed ids) could not have detected a new release.
 

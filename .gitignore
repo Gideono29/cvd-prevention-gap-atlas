@@ -10,3 +10,6 @@ __pycache__/
 build/
 dist/
 .venv/
+
+# Manuscript drafts (under journal review; not for the public repo)
+paper/

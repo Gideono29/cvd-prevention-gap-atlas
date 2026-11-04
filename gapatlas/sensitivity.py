@@ -15,7 +15,8 @@ def _compare(base: pd.DataFrame, alt: pd.DataFrame) -> dict:
     rho = base.loc[both, "gap_national"].rank().corr(alt.loc[both, "gap_national"].rank())
     a, b = set(base.index[base["top_decile_gap"] & both]), set(alt.index[alt["top_decile_gap"] & both])
     return {"n": int(both.sum()), "spearman_vs_baseline": round(float(rho), 4),
-            "top_decile_overlap": round(len(a & b) / max(len(a | b), 1), 4)}
+            "top_decile_retained": round(len(a & b) / max(len(a), 1), 4),   # share of baseline top decile still in it
+            "top_decile_jaccard": round(len(a & b) / max(len(a | b), 1), 4)}
 
 
 def run(df: pd.DataFrame, level: str) -> pd.DataFrame:

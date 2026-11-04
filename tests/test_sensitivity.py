@@ -24,4 +24,5 @@ def test_hpsa_variants_and_bounds():
     out = run(d, "county")
     assert {"hpsa_weight=0.0", "preventive_weight=2.0"} <= set(out["variant"])
     assert out["spearman_vs_baseline"].between(-1, 1).all()
-    assert out["top_decile_overlap"].between(0, 1).all()
+    assert out["top_decile_retained"].between(0, 1).all()
+    assert (out["top_decile_jaccard"] <= out["top_decile_retained"]).all()
